@@ -51,9 +51,9 @@
 
 \graphicspath{ {./images/} }
 \counterwithin{figure}{section}
-\captionsetup[figure]{name=Рисунок, labelsep=endash}
-\captionsetup[table]{skip=0pt}
-\captionsetup[figure]{skip=0pt}
+\DeclareCaptionFormat{myformat}{\fontsize{12}{14}\selectfont#1#2#3}
+\captionsetup{skip=0pt}
+\captionsetup[figure]{format=myformat, name=Рисунок, labelsep=endash, aboveskip=2pt}
 
 % Настройки для содержания
 \renewcommand{\cftsecleader}{\cftdotfill{\cftsubsecdotsep}}
