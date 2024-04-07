@@ -1,0 +1,21 @@
+%!TeX program = xelatex
+\documentclass[a4paper]{extarticle}
+
+\input{settings/packages}
+\input{settings/style}
+\input{settings/macros}
+
+\addbibresource{references/bibliography.bib}
+
+\begin{document}
+\include{sections/titlepage}
+\addtocounter{page}{1}
+\tableofcontents
+\include{sections/introduction}
+\include{sections/analysis}
+\include{sections/design}
+\include{sections/development}
+\include{sections/bibliography}
+\appendix
+\include{sections/appendix-user-flow}
+\end{document}

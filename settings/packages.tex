@@ -1,0 +1,35 @@
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage{polyglossia} % языковой пакет
+\usepackage{fontspec}
+\usepackage{hyperref}
+\usepackage[compact]{titlesec}
+\usepackage{graphicx} % пакет для использования графики (чтобы вставлять рисунки, фотографии и пр.)
+\usepackage{float}
+\usepackage{caption}
+\usepackage{tocloft}
+\usepackage{titletoc}
+\usepackage{enumitem}
+\usepackage{eqexpl}
+\usepackage{color}
+\usepackage{tabularray}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{fancyhdr}
+\usepackage[%
+backend=biber,          % Движок
+bibencoding=utf8,       % Кодировка bib-файла
+sorting=none,           % Настройка сортировки списка литературы
+style=gost-numeric,     % Стиль цитирования и библиографии по ГОСТ
+language=auto,          % Язык для каждой библиографической записи задается отдельно
+autolang=other,         % Поддержка многоязычной библиографии
+sortcites=true,         % Если в квадратных скобках несколько ссылок, то отображаться будут отсортированно
+movenames=false,        % Не перемещать имена, они всегда в начале библиографической записи
+maxnames=5,             % Максимальное отображаемое число авторов
+minnames=3,             % До скольки сокращать число авторов, если их больше максимума
+doi=false,              % Не отображать ссылки на DOI
+isbn=false,             % Не показывать ISBN, ISSN, ISRN
+]{biblatex}
+\DeclareDelimFormat{bibinitdelim}{}
+

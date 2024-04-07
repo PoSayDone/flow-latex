@@ -1,0 +1,105 @@
+\defaultfontfeatures{Ligatures=TeX}
+\setdefaultlanguage[spelling=modern]{russian}
+\setotherlanguage{english}
+\setmainfont{Times New Roman}
+\setmonofont[Scale=MatchLowercase]{DejaVu Sans Mono}
+\setmonofont[Scale=0.9]{DejaVu Sans Mono}
+\newfontfamily\cyrillicfont{Times New Roman}
+
+\eqexplSetDelim{\textendash~}
+\renewcommand\labelitemi{\textendash~}
+\usepackage[left=3cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}
+\usepackage[fontsize=13pt]{scrextend}
+
+%Пояснения к формулам
+\eqexplSetIntro{где}
+
+\setlist[enumerate]{label*=\arabic*.}
+
+% уменьшаем отступы у формул
+\expandafter\def\expandafter\normalsize\expandafter{%
+    \normalsize%
+    \setlength\abovedisplayskip{0pt}%
+    \setlength\belowdisplayskip{0pt}%
+    \setlength\abovedisplayshortskip{0pt}%
+    \setlength\belowdisplayshortskip{0pt}%
+}
+
+\setlength{\parindent}{1.25cm} % отступ для абзаца
+\onehalfspacing
+
+\AddToHook{cmd/section/before}{\clearpage} % Каждый section будет начинаться с новой страницы
+
+\titleformat*{\section}{\fontsize{16}{16}\bfseries\centering}
+\titleformat*{\subsection}{\fontsize{14}{14}\bfseries\centering}
+\titleformat*{\subsubsection}{\fontsize{14}{14}\bfseries\centering}
+\titleformat{\chapter}[display]{%
+    \normalfont\huge\bfseries%
+}{%
+    \chaptertitlename\ \thechapter%
+}{%
+    0pt% Space between "Chapter 1" and "Introduction"
+}{%
+    \Huge%
+}
+\titlespacing*{\section}
+{0pt}{0pt}{12pt}
+\titlespacing*{\subsection}
+{0pt}{12pt}{6pt}
+\titlespacing*{\subsubsection}
+{0pt}{8pt}{4pt}
+
+\graphicspath{ {./images/} }
+\counterwithin{figure}{section}
+\captionsetup[figure]{name=Рисунок, labelsep=endash}
+\captionsetup[table]{skip=0pt}
+\captionsetup[figure]{skip=0pt}
+
+% Настройки для содержания
+\renewcommand{\cftsecleader}{\cftdotfill{\cftsubsecdotsep}}
+\renewcommand{\cfttoctitlefont}{\fontsize{16}{0}\bfseries\centering\hfil}% Remove \bfseries from ToC title
+\renewcommand{\cftsecfont}{}% Remove \bfseries from section titles in ToC
+\renewcommand{\cftsecpagefont}{}% Remove \bfseries from section titles' page in ToC
+\setlength{\cftbeforesecskip}{0pt}
+\emergencystretch=25pt
+\setlist{noitemsep, topsep=0pt, leftmargin=2cm}
+% \setlist[2]{noitemsep, topsep=-3pt, leftmargin=0.4cm}
+
+\sloppy				% Избавляемся от переполнений
+\clubpenalty=10000		% Запрещаем разрыв страницы после первой строки абзаца
+\widowpenalty=10000		% Запрещаем разрыв страницы после последней строки абзаца
+
+\captionsetup[table]{labelsep=endash, justification=raggedright, singlelinecheck=off} %установки для заголовков таблиц
+
+% Номера страничек
+\urlstyle{same}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead{}
+\fancypagestyle{plain}{
+    \fancyhead{}
+    \fancyfoot[C]{\normalfont\thepage}
+}
+
+\renewcommand\tabularxcolumn[1]{m{#1}}% for vertical centering text in X column
+
+\renewcommand{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.4}
+
+
+% Приложения
+\makeatletter
+\renewcommand{\appendixname}{Приложение}
+\newcommand\appendix@section[1]{%
+  \renewcommand{\thesection}{\Asbuk{section}}%
+  \refstepcounter{section}%
+  \orig@section*{\centering\MakeUppercase{\appendixname}~\thesection\\ #1}%
+  \addcontentsline{toc}{section}{\appendixname~\thesection.~~#1}%
+}
+\let\orig@section\section
+\g@addto@macro\appendix{\let\section\appendix@section}
+\makeatother
+
+
+\let\oldtabularx\tabularx
+\renewcommand{\tabularx}{\small\oldtabularx}
