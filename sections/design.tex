@@ -1,1 +1,156 @@
 \section{Проектирование базы данных}
+
+Следующим этапом работы стало проектирование базы данных.
+
+\subsection{Связи между атрибутами}
+
+При установлении функциональных зависимостей при проектировании БД необходимо учесть следующие связи между атрибутами:
+
+\begin{itemize}
+    \item 1ФЗ\: По user\_id можно однозначно определить имя пользователя, почтовый адрес, хэш пароля, пол, текст о пользователе, профессию, дату рождения, названия файла с изображением пользователя, дату регистрации;
+    \item 2ФЗ: По message\_id можно узнать отправителя, conversation\_id, дату отправки, дату редактирования, текст сообщения и изображение;
+    \item 3ФЗ: По conversation\_id можно узнать дату создания диалога, дату обновления диалога, удален ли диалог, участников диалога;
+    \item 4ФЗ: По interest\_id можно будет узнать название интереса;
+    \item 5ФЗ: По trip\_purpose\_id можно будет узнать название цели поездки;
+    \item 6ФЗ: По match\_id можно будет узнать id того пользователя, который заинтересовался кем-то и id пользователя в ком был заинтересован первый пользователь;
+    \item 7ФЗ: По departure\_id можно будет узнать departure\_name;
+    \item 8ФЗ: По arrival\_id можно будет узнать arrival\_name;
+    \item 9ФЗ: По departure\_id и user\_id можно узнать от куда едет пользователь;
+    \item 10ФЗ: По arrival\_id и user\_id можно узнать куда едет пользователь;
+    \item 11ФЗ: По role\_id можно узнать название роли;
+    \item 12ФЗ: По role\_id и user\_id можно узнать роль пользователя.
+\end{itemize}
+
+\subsection{Приведение к первой нормальной форме}
+
+Отношение находится в 1НФ, когд все его атрибуты имеют единственно значение (атомарные атрибуты) и все кортежи уникальны (наличие РК).
+
+В реляционной модели отношение всегда находится в первой нормальной форме по определению понятия отношение.
+
+\begin{itemize}
+    \item user\_id
+    \item username
+    \item mail
+    \item password\_hash
+    \item birthdate
+    \item sex
+    \item registration\_date
+    \item about\_text
+    \item profession
+    \item message\_id
+    \item from\_id
+    \item to\_id
+    \item created\_at
+    \item updated\_at
+    \item content\_id
+    \item message\_body
+    \item message\_image
+    \item match\_id
+    \item interested\_in\_id
+    \item interest\_id
+    \item interest\_name
+    \item departure\_id
+    \item arrival\_id
+    \item departure\_name
+    \item arrival\_name
+\end{itemize}
+
+В соответствии с описанными выше функциональными зависимостями формируем первичный ключ отношения, который включает следующие атрибуты:
+
+\begin{itemize}
+    \item user\_id
+    \item message\_id
+    \item content\_id
+    \item match\_id
+    \item interest\_id
+    \item trip\_purpose\_id
+    \item departure\_id
+    \item arrival\_id
+    \item role\_id
+\end{itemize}
+
+
+\subsection{Приведение ко второй нормальной форме}
+
+Отношение находится во 2НФ, если оно находится в 1НФ + отсутствует частичная функциональная зависимость неключевых атрибутов от ключа (не д.б. неключевых полей зависящих от части PK).
+
+\begin{itemize}
+    \item user\_id определяет:
+        \begin{itemize}
+            \item username
+            \item mail
+            \item password\_hash
+            \item birthdate
+            \item sex
+            \item registration\_date
+            \item user\_image
+        \end{itemize}
+    \item message\_id определяет:
+        \begin{itemize}
+            \item conversation\_id
+            \item sender\_id
+            \item created\_at
+            \item updated\_at
+        \end{itemize}
+    \item conversation\_id определяет:
+        \begin{itemize}
+            \item is\_delete
+            \item created\_at
+            \item updated\_at
+            \item users
+        \end{itemize}
+    \item match\_id определяет:
+        \begin{itemize}
+            \item user\_id
+            \item interested\_in\_id
+        \end{itemize}
+    \item interest\_id определяет:
+        \begin{itemize}
+            \item interest\_name
+        \end{itemize}
+    \item purpose\_id определяет:
+        \begin{itemize}
+            \item purpose\_name
+        \end{itemize}
+    \item departure\_id определяет:
+        \begin{itemize}
+            \item departure\_name
+        \end{itemize}
+    \item arrival\_id определяет:
+        \begin{itemize}
+            \item arrival\_name
+        \end{itemize}
+    \item role\_id определяет:
+        \begin{itemize}
+            \item role\_name
+        \end{itemize}
+\end{itemize}
+
+Получаем такие отношения (таблицы):
+
+\begin{itemize}
+    \item “users”, которая включает атрибуты: (user\_id, username, mail, password\_hash, birthdate, sex, registration\_date)
+    \item “messages”, которая включает атрибуты: (message\_id, conversation\_id, sender\_id, created\_at, updated\_at)
+    \item “conversations”, которая включает атрибуты: (conversation\_id, created\_at, updated\_at, is\_deleted)
+    \item “conversation\_participant”, которая включает атрибуты: (user\_id, conversation\_id)
+    \item “matches”, которая включает атрибуты: (match\_id, user\_id, interested\_in\_id)
+    \item “interests”, которая включает атрибуты: (interest\_id, interest\_name)
+    \item “user\_interest”, которая включает атрибуты: (user\_id, interest\_id)
+    \item “trip\_purposes”, которая включает атрибуты: (purpose\_id, purpose\_name)
+    \item “user\_trip\_purpose”, которая включает атрибуты: (user\_id, purpose\_id)
+    \item “departures”, которая включает атрибуты: (departure\_id, departure\_name)
+    \item “arrivals”, которая включает атрибуты: (arrival\_id, arrival\_name)
+    \item “user\_departure”, которая включает атрибуты: (user\_id, departure\_id)
+    \item “user\_arrival”, которая включает атрибуты: (user\_id, arrival\_id)
+    \item “roles”, которая включает атрибуты: (role\_id, role\_name)
+    \item “user\_role”, которая включает атрибуты: (user\_id, role\_id)
+\end{itemize}
+
+\subsection{Приведение к третьей нормальной форме}
+
+Отношение находится в 3НФ, если оно находится во 2НФ + нет ФЗ между не ключевыми атрибутами (неключевые атрибуты взаимно независимы) + каждый неключевой атрибут нетранзитивно зависит от ключа.
+
+В нашем случае третья нормальная форма уже выполнена.
+
+После приведения ко всем нормальным формам мы формируем диаграмму базы данных см. ПРИЛОЖЕНИЕ \ref{pril:db-diagram}.
+

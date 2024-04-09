@@ -51,9 +51,9 @@
 
 \graphicspath{ {./images/} }
 \counterwithin{figure}{section}
-\DeclareCaptionFormat{myformat}{\fontsize{12}{14}\selectfont#1#2#3}
+\DeclareCaptionFormat{figure-format}{\fontsize{12}{14}\bfseries\itshape\selectfont#1#2#3}
 \captionsetup{skip=0pt}
-\captionsetup[figure]{format=myformat, name=Рисунок, labelsep=endash, aboveskip=2pt}
+\captionsetup[figure]{format=figure-format, name=Рисунок, labelsep=endash, aboveskip=2pt}
 
 % Настройки для содержания
 \renewcommand{\cftsecleader}{\cftdotfill{\cftsubsecdotsep}}
@@ -62,8 +62,9 @@
 \renewcommand{\cftsecpagefont}{}% Remove \bfseries from section titles' page in ToC
 \setlength{\cftbeforesecskip}{0pt}
 \emergencystretch=25pt
+
 \setlist{noitemsep, topsep=0pt, leftmargin=2cm}
-% \setlist[2]{noitemsep, topsep=-3pt, leftmargin=0.4cm}
+\setlist[2]{noitemsep, topsep=0pt, leftmargin=*}
 
 \sloppy				% Избавляемся от переполнений
 \clubpenalty=10000		% Запрещаем разрыв страницы после первой строки абзаца
