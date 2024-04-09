@@ -111,6 +111,21 @@
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
 
+\lstdefinelanguage{JavaScript}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break, await, fetch},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this, const, async},
+  ndkeywordstyle=\color{codegray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{codepurple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+
 \lstdefinestyle{mystyle}{
     commentstyle=\color{codegreen},
     keywordstyle=\color{magenta},
